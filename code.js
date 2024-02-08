@@ -1,13 +1,11 @@
 function binarySearch(list = [], element) {
 
-    pivotPercentage = .5; 
     index = -1;
-
-    // So now I'm using a percentage to place my pivot in the middle of the data and then using math to manipulate the place the index,
-    // this will place the pivot halfway in between the set of numbers I want to look at, binary search! 
+    start = 0;
+    end = list.length-1;
     
     for (i = 0; i < Math.floor(list.length / 2) + 2; i++){
-        pivot = Math.floor(pivotPercentage * list.length);
+        pivot = Math.floor((end + start)/2)
         //console.log(element, list, list[pivot], i); // uncomment if you wish to see how the algorithm is doing in runtime
         if (list[pivot] == element) {
             index = pivot;
@@ -23,16 +21,16 @@ function binarySearch(list = [], element) {
             }
             return index;
         }
-        else if (list[pivot] > element) { // Tests if the element is smaller than the pivot item
-            pivotPercentage *= .5; // Multiplying a fraction by 1/2 will make it exactly half, perfect for looking in the middle of
-                                   // the lower data.
+        else if (list[pivot] > element) {
+            end = pivot; 
         }
-        else if (list[pivot] < element) { // Test if the element is bigger than the pivot item
-            pivotPercentage = (pivotPercentage * .5) + pivotPercentage; // This adds half of the percentage to the percentage, looking 
-        }                                                               // in the middle of the upper data.
+        else if (list[pivot] < element) { 
+            start = pivot; 
+        }
     }
     return index;
 }
+
 
 // This was my first attempt, I was making a new array everytime to find the element, but that would change the index of the element so I tossed it.
 
@@ -50,4 +48,4 @@ function binarySearch(list = [], element) {
         //else if (newList[halfIndex] < element){ // Testing if the element is larger than the index
             //newList = newList.slice(halfIndex, newList.length); // changes the list to look at the upper half
         //}
-    //}
+    //
